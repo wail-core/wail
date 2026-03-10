@@ -26,10 +26,11 @@ frontend/.env*.local
 # macOS
 .DS_Store
 
-# IDE
+# IDE & local tooling
 .idea/
 .vscode/
 *.swp
+.claude/
 
 # Test output
 .pytest_cache/

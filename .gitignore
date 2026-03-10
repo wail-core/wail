@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Secrets & credentials — NEVER commit these
+backend/.env
+backend/credentials.json
+backend/credentials_*.json
+backend/token.json
+backend/token_*.json
+backend/integrations_state.json
+backend/shared_config.json
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/.env*.local
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Test output
+.pytest_cache/
+htmlcov/
+.coverage

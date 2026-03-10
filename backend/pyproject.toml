@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wail-core"
+version = "0.1.0"
+description = "Website Agent Integration Layer — the open framework for exposing businesses to AI agents."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+]
+
+[project.optional-dependencies]
+# pip install wail-core[redis]  — swap the in-memory cache for Redis
+redis = ["redis>=5.0.0"]
+# pip install wail-core[mcp]    — expose integrations via the MCP protocol
+mcp  = ["fastmcp>=0.1.0"]
+# pip install wail-core[google] — Google Calendar connection
+google = [
+    "google-auth>=2.29.0",
+    "google-auth-oauthlib>=1.2.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-api-python-client>=2.124.0",
+]
+# pip install wail-core[stripe] — Stripe payment connection
+stripe = ["stripe>=8.0.0"]
+# pip install wail-core[dev]    — plugin sandbox (wail-dev command)
+dev  = ["watchfiles>=0.21.0"]
+# pip install wail-core[test]   — testing harness (pytest fixtures + mocks)
+test = ["pytest>=7.0.0", "httpx>=0.27.0"]
+# pip install wail-core[all]    — everything bundled (dev / getting-started shortcut)
+all = [
+    "redis>=5.0.0",
+    "fastmcp>=0.1.0",
+    "watchfiles>=0.21.0",
+    "google-auth>=2.29.0",
+    "google-auth-oauthlib>=1.2.0",
+    "google-auth-httplib2>=0.2.0",
+    "google-api-python-client>=2.124.0",
+    "stripe>=8.0.0",
+]
+
+[project.scripts]
+# Run the WAIL server directly: wail-serve
+wail-serve          = "main:serve"
+# Run the plugin sandbox: wail-dev my_plugin.py
+wail-dev            = "dev_sandbox:main"
+# Scaffold a new plugin package: wail-create-plugin
+wail-create-plugin  = "create_plugin:main"
+
+[project.entry-points."pytest11"]
+# Auto-registers mock_calendar, mock_payment, and wail_test_client fixtures
+# in any test suite that has wail-core installed — no conftest.py needed.
+wail = "wail_testing"
+
+[tool.setuptools.packages.find]
+where = ["."]
